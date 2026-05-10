@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Tailor Receipt</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    width:500px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+    color:#ff9800;
+}
+
+.input-box{
+    margin-bottom:15px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.input-box input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    background:#ff9800;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#e68900;
+}
+
+/* RECEIPT */
+
+.receipt{
+    margin-top:25px;
+    border:2px dashed #333;
+    padding:20px;
+    display:none;
+}
+
+.receipt h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.receipt p{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.print-btn{
+    margin-top:15px;
+    background:green;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Tailor Receipt Generator</h1>
+
+    <div class="input-box">
+        <label>Customer Name</label>
+        <input type="text" id="customerName">
+    </div>
+
+    <div class="input-box">
+        <label>Dress Type</label>
+        <input type="text" id="dressType">
+    </div>
+
+    <div class="input-box">
+        <label>Measurement</label>
+        <input type="text" id="measurement">
+    </div>
+
+    <div class="input-box">
+        <label>Amount</label>
+        <input type="number" id="amount">
+    </div>
+
+    <button class="btn"
+    onclick="generateReceipt()">
+    Generate Receipt
+    </button>
+
+    <!-- RECEIPT -->
+
+    <div class="receipt" id="receipt">
+
+        <h2>Payment Receipt</h2>
+
+        <p><b>Receipt No:</b>
+        <span id="rno"></span></p>
+
+        <p><b>Customer Name:</b>
+        <span id="rname"></span></p>
+
+        <p><b>Dress Type:</b>
+        <span id="rdress"></span></p>
+
+        <p><b>Measurement:</b>
+        <span id="rmeasurement"></span></p>
+
+        <p><b>Amount Paid:</b> ₹
+        <span id="ramount"></span></p>
+
+        <p><b>Status:</b> Paid</p>
+
+        <button class="btn print-btn"
+        onclick="printReceipt()">
+        Print Receipt
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function generateReceipt()
+{
+    let customerName =
+    document.getElementById("customerName").value;
+
+    let dressType =
+    document.getElementById("dressType").value;
+
+    let measurement =
+    document.getElementById("measurement").value;
+
+    let amount =
+    document.getElementById("amount").value;
+
+    if(customerName == "" ||
+       dressType == "" ||
+       measurement == "" ||
+       amount == "")
+    {
+        alert("Please fill all fields");
+        return;
+    }
+
+    // RANDOM RECEIPT NUMBER
+
+    let receiptNo =
+    Math.floor(Math.random() * 100000);
+
+    // DISPLAY RECEIPT
+
+    document.getElementById("receipt")
+    .style.display = "block";
+
+    document.getElementById("rno")
+    .innerHTML = receiptNo;
+
+    document.getElementById("rname")
+    .innerHTML = customerName;
+
+    document.getElementById("rdress")
+    .innerHTML = dressType;
+
+    document.getElementById("rmeasurement")
+    .innerHTML = measurement;
+
+    document.getElementById("ramount")
+    .innerHTML = amount;
+}
+
+function printReceipt()
+{
+    window.print();
+}
+
+</script>
+
+</body>
+</html>
