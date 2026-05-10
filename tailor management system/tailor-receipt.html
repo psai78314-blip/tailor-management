@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Receipt Generator</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.container{
+    width:500px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    margin-bottom:15px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#ff9800;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+}
+
+#receipt{
+    margin-top:20px;
+    border:1px solid black;
+    padding:20px;
+    display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Receipt Generator</h1>
+
+<input type="text"
+id="customer"
+placeholder="Customer Name">
+
+<input type="text"
+id="dress"
+placeholder="Dress Type">
+
+<input type="text"
+id="measurement"
+placeholder="Measurement">
+
+<input type="number"
+id="amount"
+placeholder="Amount">
+
+<button onclick="generateReceipt()">
+Generate Receipt
+</button>
+
+<div id="receipt">
+
+<h2>Payment Receipt</h2>
+
+<p id="rCustomer"></p>
+
+<p id="rDress"></p>
+
+<p id="rMeasurement"></p>
+
+<p id="rAmount"></p>
+<button oneclick="printReceipt()">
+Print Receipt
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function generateReceipt(){
+
+let customer =
+document.getElementById("customer").value;
+
+let dress =
+document.getElementById("dress").value;
+
+let measurement =
+document.getElementById("measurement").value;
+
+let amount =
+document.getElementById("amount").value;
+
+if(customer == "" ||
+   dress == "" ||
+   measurement == "" ||
+   amount == "")
+{
+    alert("Please fill all fields");
+    return;
+}
+
+document.getElementById("receipt")
+.style.display = "block";
+
+document.getElementById("rCustomer")
+.innerHTML = "Customer Name : " + customer;
+
+document.getElementById("rDress")
+.innerHTML = "Dress Type : " + dress;
+
+document.getElementById("rMeasurement")
+.innerHTML = "Measurement : " + measurement;
+
+document.getElementById("rAmount")
+.innerHTML = "Amount Paid : ₹" + amount;
+
+}
+
+function printReceipt(){
+
+window.print();
+
+}
+
+</script>
+
+</body>
+</html>

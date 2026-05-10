@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tailor Management System Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    width:250px;
+    height:100vh;
+    background:#1e1e2f;
+    padding-top:20px;
+}
+
+.sidebar h2{
+    text-align:center;
+    color:#ffcc00;
+    margin-bottom:30px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 25px;
+    border-bottom:1px solid #333;
+    transition:0.3s;
+}
+
+.sidebar ul li:hover{
+    background:#ff9800;
+}
+
+.sidebar ul li a{
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+}
+
+/* MAIN CONTENT */
+
+.main{
+    margin-left:250px;
+    padding:20px;
+}
+
+.header{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.header h1{
+    color:#333;
+}
+
+/* CARDS */
+
+.cards{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.card{
+    flex:1;
+    min-width:220px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card h2{
+    color:#ff9800;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:35px;
+    font-weight:bold;
+}
+
+/* FORM */
+
+.form-section{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:30px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-section h2{
+    margin-bottom:20px;
+    color:#333;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.btn{
+    background:#ff9800;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn:hover{
+    background:#e68900;
+}
+
+/* TABLE */
+
+.table-section{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.table-section h2{
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+table th{
+    background:#ff9800;
+    color:white;
+}
+
+.delete-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h2>Tailor Admin</h2>
+
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Customers</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Measurements</a></li>
+        <li><a href="#">Payments</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="index.html">Logout</a></li>
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- HEADER -->
+
+    <div class="header">
+        <h1>Welcome Admin 👋</h1>
+        <p>Tailor Management System Dashboard</p>
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>Total Customers</h2>
+            <p id="customerCount">0</p>
+        </div>
+
+        <div class="card">
+            <h2>Total Orders</h2>
+            <p id="orderCount">0</p>
+        </div>
+
+        <div class="card">
+            <h2>Completed Orders</h2>
+            <p id="completedCount">0</p>
+        </div>
+
+        <div class="card">
+            <h2>Pending Orders</h2>
+            <p id="pendingCount">0</p>
+        </div>
+
+    </div>
+
+    <!-- ADD ORDER FORM -->
+
+    <div class="form-section">
+
+        <h2>Add Customer Order</h2>
+
+        <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="customerName">
+        </div>
+
+        <div class="form-group">
+            <label>Dress Type</label>
+            <input type="text" id="dressType">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select id="status">
+                <option>Pending</option>
+                <option>Completed</option>
+            </select>
+        </div>
+
+        <button class="btn" onclick="addOrder()">Add Order</button>
+
+    </div>
+
+    <!-- ORDER TABLE -->
+
+    <div class="table-section">
+
+        <h2>Customer Orders</h2>
+
+        <table id="orderTable">
+
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Dress Type</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+let orderId = 100;
+
+function addOrder()
+{
+    let customerName = document.getElementById("customerName").value;
+    let dressType = document.getElementById("dressType").value;
+    let status = document.getElementById("status").value;
+
+    if(customerName == "" || dressType == "")
+    {
+        alert("Please fill all fields");
+        return;
+    }
+
+    orderId++;
+
+    let table = document.getElementById("orderTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = orderId;
+    row.insertCell(1).innerHTML = customerName;
+    row.insertCell(2).innerHTML = dressType;
+    row.insertCell(3).innerHTML = status;
+
+    row.insertCell(4).innerHTML =
+    `<button class="delete-btn" onclick="deleteOrder(this)">Delete</button>`;
+
+    updateCounts();
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("dressType").value = "";
+}
+
+function deleteOrder(button)
+{
+    let row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+
+    updateCounts();
+}
+
+function updateCounts()
+{
+    let table = document.getElementById("orderTable");
+
+    let rows = table.rows.length - 1;
+
+    document.getElementById("customerCount").innerHTML = rows;
+    document.getElementById("orderCount").innerHTML = rows;
+
+    let completed = 0;
+    let pending = 0;
+
+    for(let i = 1; i < table.rows.length; i++)
+    {
+        let status = table.rows[i].cells[3].innerHTML;
+
+        if(status == "Completed")
+        {
+            completed++;
+        }
+        else
+        {
+            pending++;
+        }
+    }
+
+    document.getElementById("completedCount").innerHTML = completed;
+    document.getElementById("pendingCount").innerHTML = pending;
+}
+
+</script>
+
+</body>
+</html>
